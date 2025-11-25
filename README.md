@@ -19,3 +19,6 @@ pip install django-cors-headers
 
 6. Instalar decouple
 pip install python-decouple
+
+
+si
