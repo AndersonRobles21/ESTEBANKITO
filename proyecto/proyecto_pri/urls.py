@@ -24,8 +24,8 @@ schema_view = get_schema_view(
 urlpatterns = [
     path('', home),  # ← ← ← ESTA ES LA QUE FALTABA
     path('admin/', admin.site.urls),
-    path('api/', include('cultivos.urls')),
-    path('api/', include('sensores.urls')),
+    path('api/cultivos/', include('cultivos.urls')),
+    path('api/sensores/', include('sensores.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),
 ]
