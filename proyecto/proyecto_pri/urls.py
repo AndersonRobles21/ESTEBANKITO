@@ -26,6 +26,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/cultivos/', include('cultivos.urls')),
     path('api/sensores/', include('sensores.urls')),
+    path('api/lecturas/', include('lecturas.urls')),
+    path('api/alertas/', include('alertas.urls')),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0)),
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0)),
 ]
