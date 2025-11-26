@@ -80,6 +80,15 @@ django-filter
 drf-yasg
 python-decouple
 ```
+# Alertas
+
+- **Qué hace:** Gestiona tipos de alertas y registros de alertas generadas por condiciones críticas de sensores (p. ej. valores fuera de rango) y las asocia a un cultivo y sensor.
+- **Cómo funciona:** Tiene los modelos `TipoAlerta` (define niveles y descripciones) y `Alerta` (almacena valor medido, límite, estado y fechas). Las alertas se pueden crear desde la API o por procesos que comparan `Lectura` con `RangoAlerta`.
+- **Estados:** `ACTIVA`, `RESUELTA`, `IGNORADA` — se puede marcar como resuelta vía endpoint.
+- **Endpoints útiles:** listar/filtrar alertas, crear alertas, `resolver` (marcar como resuelta), `estadisticas`, `por_tipo`, y `criticas` (solo críticas activas).
+- **Integración:** Se integra con las apps `sensores`, `cultivos` y `lecturas` para obtener contexto del sensor, cultivo y rangos de umbral.
+```
+
 # BASE DE DATOS
 
 Instalación de Docker en Windows 11
