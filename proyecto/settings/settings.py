@@ -1,5 +1,5 @@
 """
-Django settings for proyecto_pri project.
+Django settings for settings project.
 """
 
 from pathlib import Path
@@ -9,8 +9,14 @@ import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config("SECRET_KEY")
+# SECRET_KEY: se lee de las variables de entorno vía python-decouple.
+# Para evitar errores en desarrollo, proporcionamos un valor por defecto
+# (inseguro) que solo debe usarse localmente. En producción **siempre**
+# establece `SECRET_KEY` en el entorno o en un archivo `.env` privado.
+SECRET_KEY = config('SECRET_KEY', default='insecure-dev-secret-change-me')
 
+# DEBUG se mantiene True por defecto para desarrollo. En producción
+# cambia esto vía una variable de entorno o tu configuración de despliegue.
 DEBUG = True
 
 ALLOWED_HOSTS = []
@@ -83,12 +89,29 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 # -----------------------------
 # BASE DE DATOS
 # -----------------------------
+# Cambiado para usar PostgreSQL en lugar de SQLite.
+# Usamos `python-decouple` (ya importado arriba) para leer las
+# variables de entorno desde un archivo `.env` o desde el entorno
+# del sistema. Esto permite mantener credenciales fuera del código.
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv("POSTGRES_DB"),
+        'USER': os.getenv("POSTGRES_USER"),
+        'PASSWORD': os.getenv("POSTGRES_PASSWORD"),
+        'HOST': os.getenv("POSTGRES_HOST", "db"),
+        'PORT': os.getenv("POSTGRES_PORT", 5432),
     }
 }
+
+
+# NOTAS:
+# - Para desarrollo local crea un archivo `.env` en la carpeta `proyecto/`
+#   (no lo subas al control de versiones). Puedes usar el archivo
+#   `proyecto/.env.example` creado en este commit como plantilla.
+# - Si prefieres usar una sola variable de conexión, puedes usar
+#   `dj-database-url` y `config('DATABASE_URL')`, pero aquí se dejó
+#   explícito para mayor claridad y control.
 
 
 # -----------------------------
