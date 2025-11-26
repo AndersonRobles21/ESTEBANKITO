@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: estebankito
+    env: python
+    buildCommand: pip install -r proyecto/requirements.txt
+    startCommand: gunicorn back.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT
+    plan: free
+    region: ohio
+    branch: main
