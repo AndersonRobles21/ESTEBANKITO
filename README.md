@@ -35,3 +35,47 @@ Este parte es un sistema para gestionar cultivos, incluyendo información sobre 
 Instalar dependencias:
 pip install django djangorestframework django-filter drf-yasg
 drf-yasg se usa para la documentación Swagger y Redoc.
+
+# Sensores
+
+# Sistema de Monitoreo de Cultivos Inteligente - App Sensores
+
+## Descripción
+La aplicación **Sensores** permite gestionar los sensores instalados en el sistema de monitoreo de cultivos.  
+Incluye modelos, filtros y validaciones, y está documentada automáticamente mediante Swagger/OpenAPI.
+
+Esta app forma parte del proyecto modular junto con **Cultivos, Lecturas y Alertas**.
+
+---
+
+## Modelos
+
+### TipoSensor
+- `nombre`: Nombre del tipo de sensor.
+- `descripcion`: Breve descripción del tipo de sensor.
+
+### Sensor
+- `nombre`: Nombre del sensor.
+- `tipo`: Relación con TipoSensor.
+- `fecha_instalacion`: Fecha en que se instaló el sensor.
+- `activo`: Booleano que indica si el sensor está activo o inactivo.
+
+**Validaciones:**
+- La fecha de instalación no puede ser futura,limitada a solo 4 digitos.
+
+---
+## Documentación de la API
+Se puede consultar en:
+
+- Swagger: `/swagger/`
+- Redoc: `/redoc/`
+
+---
+
+## Dependencias
+```bash
+django
+djangorestframework
+django-filter
+drf-yasg
+python-decouple
