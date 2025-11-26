@@ -15,11 +15,13 @@ BASE_DIR = Path(__file__).resolve().parent
 # establece `SECRET_KEY` en el entorno o en un archivo `.env` privado.
 SECRET_KEY = config('SECRET_KEY', default='insecure-dev-secret-change-me')
 
-# DEBUG se mantiene True por defecto para desarrollo. En producción
-# cambia esto vía una variable de entorno o tu configuración de despliegue.
-DEBUG = True
+# DEBUG se puede controlar vía variable de entorno `DEBUG`.
+# Por defecto está activado en entorno local.
+DEBUG = config('DEBUG', default='True').lower() in ('true', '1', 'yes')
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS: se puede configurar vía variable de entorno `ALLOWED_HOSTS`
+# (coma-separada). Por defecto permitimos localhost para desarrollo.
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
 
 # -----------------------------
 # INSTALLED_APPS

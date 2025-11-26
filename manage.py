@@ -7,10 +7,7 @@ from pathlib import Path
 
 def main():
     """Run administrative tasks."""
-    # Agregar 'proyecto/' al path de Python para que Django encuentre las apps
-    BASE_DIR = Path(__file__).resolve().parent
-    sys.path.insert(0, str(BASE_DIR / 'proyecto'))
-    
+    # Usar el settings por defecto (archivo `settings.py` en la raíz)
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings')
     try:
         from django.core.management import execute_from_command_line
