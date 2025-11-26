@@ -96,10 +96,10 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proyecto_db_knowevent',
-        'USER': 'proyecto_db_knowevent',
-        'PASSWORD': 'c478f56b0fe71a05b4580b05034d62284b359b56',
-        'HOST': 'localkvdk44.h.filess.io',
+        'NAME': 'proyecto_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
         'PORT': 5432,
     }
 }
