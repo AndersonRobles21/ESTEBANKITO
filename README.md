@@ -79,3 +79,139 @@ djangorestframework
 django-filter
 drf-yasg
 python-decouple
+```
+# BASE DE DATOS
+
+Instalación de Docker en Windows 11
+
+Descargar Docker Desktop:
+https://www.docker.com/products/docker-desktop/
+
+Instalar con permisos de administrador.
+
+Asegurarse de habilitar WSL 2:
+
+wsl --install
+
+
+Reiniciar el sistema.
+
+Abrir Docker Desktop y confirmar que esté funcionando.
+
+Creación del archivo docker-compose.yml
+Dentro de la carpeta del proyecto, crear un archivo:
+docker-compose.yml
+
+Contenido:
+```
+services:
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_DB: proyecto_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
+```
+🏗 3. Construcción y ejecución de los contenedores
+
+En la terminal:
+
+docker compose up -d
+
+db → PostgreSQL estará corriendo en localhost:5432
+web → Django se ejecutará en localhost:8000
+Ver logs:
+docker compose logs -f
+Detener:
+docker compose down
+
+ Instalación del conector psycopg2
+
+Este paso es obligatorio para conectar Django con PostgreSQL.
+Instalar:
+pip install psycopg2
+Si falla, user:
+pip install psycopg2-binary
+
+⚙️ 6. Configuración de la Base de Datos en Django
+Editar:
+proyecto/settings.py
+
+Cambiar la configuración de DATABASES:
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'proyecto_db',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}
+```
+🧱 7. Aplicar migraciones de Django
+
+Ejecutar:
+
+python manage.py makemigrations
+python manage.py migrate
+Esto crea todas las tablas:
+auth_user
+django_admin
+migraciones
+tablas propias del proyecto
+
+🛠 8. Instalar y usar la extensión PostgreSQL en VS Code
+
+Abrir VS Code
+
+Ir a Extensiones → buscar:
+
+PostgreSQL
+Instalar la extensión oficial.
+Abrir panel izquierdo → PostgreSQL
+
+Crear conexión:
+```
+Host: localhost
+Port: 5432
+User: postgres
+Password: postgres
+Database: proyecto_db
+```
+Listo: podrás ver todas las tablas.
+
+📊 9. Ver tablas, datos y ejecutar SQL
+Ver tablas
+
+Panel izquierdo → PostgreSQL →
+public → tables
+
+
+Ejemplo:
+
+SELECT * FROM auth_user;
+
+
+Para tus modelos:
+
+SELECT * FROM app_modelo;
