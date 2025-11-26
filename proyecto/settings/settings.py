@@ -91,16 +91,19 @@ WSGI_APPLICATION = 'settings.wsgi.application'
 # -----------------------------
 # Cambiado para usar PostgreSQL en lugar de SQLite.
 # Usamos `python-decouple` (ya importado arriba) para leer las
-# variables de entorno desde un archivo `.env` o desde el entorno
-# del sistema. Esto permite mantener credenciales fuera del código.
+# variables de entorno desde un archivo `.env` (desarrollo local) o desde
+# el entorno del sistema (producción en Render). Esto permite mantener
+# credenciales fuera del código.
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'proyecto_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': 5432,
+        # En Render, estas variables se definen en el dashboard.
+        # Localmente, se leen de proyecto/.env
+        'NAME': config('DB_NAME', default='proyecto_db'),
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD', default='postgres'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', cast=int, default=5432),
     }
 }
 
