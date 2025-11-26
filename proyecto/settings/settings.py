@@ -57,7 +57,7 @@ MIDDLEWARE = [
 # -----------------------------
 # URLS
 # -----------------------------
-ROOT_URLCONF = 'proyecto_pri.urls'
+ROOT_URLCONF = 'settings.urls'
 
 # -----------------------------
 # TEMPLATES (OBLIGATORIO)
@@ -78,7 +78,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'proyecto_pri.wsgi.application'
+WSGI_APPLICATION = 'settings.wsgi.application'
 
 # -----------------------------
 # BASE DE DATOS
