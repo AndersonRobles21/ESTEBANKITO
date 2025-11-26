@@ -11,4 +11,6 @@ PyYAML==6.0.3
 sqlparse==0.5.3
 tzdata==2025.2
 uritemplate==4.2.0
+gunicorn
+uvicorn
 psycopg2-binary==2.9.7  # driver PostgreSQL (agregado para usar PostgreSQL en lugar de SQLite)
