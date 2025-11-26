@@ -33,7 +33,7 @@ INSTALLED_APPS = [
     # Django REST Framework
     'rest_framework',
     'drf_yasg',
-
+    
     # Tus apps
     'cultivos',
     'sensores',
