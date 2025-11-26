@@ -2,16 +2,15 @@ services:
   - type: web
     name: estebankito
     env: python
-    # Instalar dependencias desde requirements.txt en la raíz
+    # Instalar dependencias desde requirements.txt
     buildCommand: "pip install -r requirements.txt"
-    # Comando de inicio: cambiar a directorio 'proyecto/' y ejecutar gunicorn
-    # El módulo ASGI se especifica como 'proyecto.settings.asgi' (ruta completa)
-    startCommand: "cd proyecto && gunicorn proyecto.settings.asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT"
+    # Comando de inicio: gunicorn con módulo ASGI en la raíz (simplificado)
+    startCommand: "gunicorn asgi:application -k uvicorn.workers.UvicornWorker --bind 0.0.0.0:$PORT"
 
     envVars:
-      # Variable de entorno para Django: módulo de settings completo
+      # Variable de entorno para Django: módulo de settings (en la raíz ahora)
       - key: DJANGO_SETTINGS_MODULE
-        value: proyecto.settings.settings
+        value: settings
       # Variables de base de datos PostgreSQL (configura en Render dashboard)
       - key: DB_NAME
         fromDatabase:
@@ -31,7 +30,7 @@ services:
           property: host
       - key: DB_PORT
         value: "5432"
-      # DEBUG debe ser False en producción (configura en dashboard o variable)
+      # DEBUG debe ser False en producción
       - key: DEBUG
         value: "False"
       # SECRET_KEY: configura en el Render dashboard como variable secreta
